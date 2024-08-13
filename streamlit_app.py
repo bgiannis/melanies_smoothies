@@ -55,7 +55,8 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon"
 # adding the json function displayes the record to screen
 # st.text(fruityvice_response.json())  
 
-# putting JSON into a Dataframe
+# putting JSON into a Dataframe so it will display as table.
+# use_container_width --> means table will expand to fill space of page
 fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
 
