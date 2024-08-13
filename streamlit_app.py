@@ -1,6 +1,7 @@
 # Import python packages
 import streamlit as st
 from snowflake.snowpark.functions import col
+import requests
 
 # Write directly to the app
 # Need space after first occurrence of ":cup_with_straw: " otherwise you get a syntax error
@@ -33,6 +34,12 @@ if ingredients_list:
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
 
+        # request to pull in fruityvice data
+        # putting JSON into a Dataframe so it will display as table.
+        # use_container_width --> means table will expand to fill space of page
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+        fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
+
     #st.write(ingredients_string)
 
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
@@ -49,12 +56,8 @@ if ingredients_list:
         st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
 
 
-import requests
+
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-
-# adding the json function displayes the record to screen
-# st.text(fruityvice_response.json())  
-
 # putting JSON into a Dataframe so it will display as table.
 # use_container_width --> means table will expand to fill space of page
 fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
