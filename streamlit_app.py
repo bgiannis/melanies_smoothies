@@ -41,14 +41,14 @@ if ingredients_list:
         ingredients_string += fruit_chosen + ' '
         
         search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
-        st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
+        # st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
         
         st.subheader(fruit_chosen + ' Nutrition Information')  # Put out title for each fruit chosen with table displayed beneath to show nutrition info
 
         # request to pull in fruityvice data
         # putting JSON into a Dataframe so it will display as table.
         # use_container_width --> means table will expand to fill space of page
-        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_chosen)
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + search_on)
         fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
     #st.write(ingredients_string)
