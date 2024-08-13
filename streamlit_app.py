@@ -2,6 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.functions import col
 import requests
+import pandas
 
 # Write directly to the app
 # Need space after first occurrence of ":cup_with_straw: " otherwise you get a syntax error
@@ -20,8 +21,8 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
-st.dataframe(data=my_dataframe, use_container_width=True)
-st.stop()
+#st.dataframe(data=my_dataframe, use_container_width=True)
+#st.stop()
 
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients;'
