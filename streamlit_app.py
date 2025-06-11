@@ -29,7 +29,7 @@ ingredients_list = st.multiselect(
     ,my_dataframe
     ,max_selections=5
 )
-
+st.stop()
 if ingredients_list:
     ingredients_string = ''
 
